@@ -73,7 +73,7 @@
                     "name": "Next",
                     "type": "Button",
                     "id": "b7230bb6-fc9b-4f52-8b25-f5e19cb2c2ba",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -1051,7 +1051,7 @@
                 },
                 {
                     "name": "",
-                    "id": "2f51c879-4303-4421-bc7a-4724ee41a497",
+                    "id": "0aba3871-ff15-4c73-ae76-0ba43269d5c9",
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
@@ -1076,7 +1076,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Jump",
+                    "name": "GreenJump",
                     "type": "Button",
                     "id": "0df34519-8f4b-4473-b881-22cbc7b5e996",
                     "expectedControlType": "",
@@ -1126,7 +1126,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Jump",
+                    "action": "GreenJump",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 305714654}
   - component: {fileID: 305714653}
   - component: {fileID: 305714652}
+  - component: {fileID: 305714655}
   m_Layer: 0
   m_Name: Red
   m_TagString: Untagged
@@ -206,7 +207,7 @@ Transform:
   m_GameObject: {fileID: 305714649}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.29, y: 0.5, z: 0}
+  m_LocalPosition: {x: -3.29, y: -4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -225,9 +226,9 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDamping: 0
+  m_LinearDamping: 0.05
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 9.8
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -238,7 +239,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &305714653
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -297,9 +298,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ec52f5b6d9e9894b83d69753f2b6828, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MoveRed
-  moveSpeed: 500
+  moveSpeed: 7.5
   onGround: 0
-  jumpDistance: 100
+  jumpDistance: 30
+--- !u!114 &305714655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 305714649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
+  m_Actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: RedMap
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &486257285
 GameObject:
   m_ObjectHideFlags: 0
@@ -313,6 +344,7 @@ GameObject:
   - component: {fileID: 486257288}
   - component: {fileID: 486257287}
   - component: {fileID: 486257286}
+  - component: {fileID: 486257291}
   m_Layer: 0
   m_Name: Green
   m_TagString: Untagged
@@ -332,7 +364,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edb1647689eb477438fe00ea685ecd4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MoveGreen
-  moveSpeed: 5
+  moveSpeed: 7.5
+  onGround: 1
+  jumpDistance: 30
 --- !u!50 &486257287
 Rigidbody2D:
   serializedVersion: 5
@@ -348,7 +382,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0.05
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 9.8
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -359,7 +393,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &486257288
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -473,12 +507,42 @@ Transform:
   m_GameObject: {fileID: 486257285}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.31, y: 0.5, z: 0}
+  m_LocalPosition: {x: -0.31, y: -4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &486257291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 486257285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
+  m_Actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: GreenMap
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -785,7 +849,7 @@ Transform:
   m_GameObject: {fileID: 1499508544}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.01905, y: -0.5, z: 0}
+  m_LocalPosition: {x: -0.01905, y: -5, z: 0}
   m_LocalScale: {x: 20, y: 1, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []

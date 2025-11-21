@@ -1,6 +1,7 @@
 using UnityEditor.ShaderGraph;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class MoveRed : MonoBehaviour
 {
@@ -22,25 +23,18 @@ public class MoveRed : MonoBehaviour
         controls.RedMap.Enable();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     void FixedUpdate()
     {
         // Get move value from the input system and then move the red player
         moveDistance = controls.RedMap.MoveRed.ReadValue<Vector2>();
 
-        rb.linearVelocity = moveDistance * moveSpeed * Time.fixedDeltaTime;
+        rb.linearVelocityX = moveDistance.x * moveSpeed;
  
     }
 
     private void OnRedJump()
     {
         Debug.Log("Jump");
-        rb.linearVelocityY = jumpDistance;
-        
+        rb.linearVelocityY = jumpDistance; 
     }
 }

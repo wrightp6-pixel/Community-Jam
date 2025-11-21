@@ -159,7 +159,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""name"": ""Next"",
                     ""type"": ""Button"",
                     ""id"": ""b7230bb6-fc9b-4f52-8b25-f5e19cb2c2ba"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -1137,7 +1137,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""2f51c879-4303-4421-bc7a-4724ee41a497"",
+                    ""id"": ""0aba3871-ff15-4c73-ae76-0ba43269d5c9"",
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -1162,7 +1162,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Jump"",
+                    ""name"": ""GreenJump"",
                     ""type"": ""Button"",
                     ""id"": ""0df34519-8f4b-4473-b881-22cbc7b5e996"",
                     ""expectedControlType"": """",
@@ -1212,7 +1212,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Jump"",
+                    ""action"": ""GreenJump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1312,7 +1312,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         // GreenMap
         m_GreenMap = asset.FindActionMap("GreenMap", throwIfNotFound: true);
         m_GreenMap_MoveGreen = m_GreenMap.FindAction("MoveGreen", throwIfNotFound: true);
-        m_GreenMap_Jump = m_GreenMap.FindAction("Jump", throwIfNotFound: true);
+        m_GreenMap_GreenJump = m_GreenMap.FindAction("GreenJump", throwIfNotFound: true);
     }
 
     ~@InputSystem_Actions()
@@ -1883,7 +1883,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_GreenMap;
     private List<IGreenMapActions> m_GreenMapActionsCallbackInterfaces = new List<IGreenMapActions>();
     private readonly InputAction m_GreenMap_MoveGreen;
-    private readonly InputAction m_GreenMap_Jump;
+    private readonly InputAction m_GreenMap_GreenJump;
     /// <summary>
     /// Provides access to input actions defined in input action map "GreenMap".
     /// </summary>
@@ -1900,9 +1900,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @MoveGreen => m_Wrapper.m_GreenMap_MoveGreen;
         /// <summary>
-        /// Provides access to the underlying input action "GreenMap/Jump".
+        /// Provides access to the underlying input action "GreenMap/GreenJump".
         /// </summary>
-        public InputAction @Jump => m_Wrapper.m_GreenMap_Jump;
+        public InputAction @GreenJump => m_Wrapper.m_GreenMap_GreenJump;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1932,9 +1932,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @MoveGreen.started += instance.OnMoveGreen;
             @MoveGreen.performed += instance.OnMoveGreen;
             @MoveGreen.canceled += instance.OnMoveGreen;
-            @Jump.started += instance.OnJump;
-            @Jump.performed += instance.OnJump;
-            @Jump.canceled += instance.OnJump;
+            @GreenJump.started += instance.OnGreenJump;
+            @GreenJump.performed += instance.OnGreenJump;
+            @GreenJump.canceled += instance.OnGreenJump;
         }
 
         /// <summary>
@@ -1949,9 +1949,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @MoveGreen.started -= instance.OnMoveGreen;
             @MoveGreen.performed -= instance.OnMoveGreen;
             @MoveGreen.canceled -= instance.OnMoveGreen;
-            @Jump.started -= instance.OnJump;
-            @Jump.performed -= instance.OnJump;
-            @Jump.canceled -= instance.OnJump;
+            @GreenJump.started -= instance.OnGreenJump;
+            @GreenJump.performed -= instance.OnGreenJump;
+            @GreenJump.canceled -= instance.OnGreenJump;
         }
 
         /// <summary>
@@ -2236,11 +2236,11 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnMoveGreen(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "Jump" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "GreenJump" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnJump(InputAction.CallbackContext context);
+        void OnGreenJump(InputAction.CallbackContext context);
     }
 }
