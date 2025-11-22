@@ -1,0 +1,77 @@
+{
+    "version": 1,
+    "name": "GreenActions",
+    "maps": [
+        {
+            "name": "GreenMap",
+            "id": "448892c0-ff45-43c0-8e13-749f1e33ca69",
+            "actions": [
+                {
+                    "name": "GreenJump",
+                    "type": "Button",
+                    "id": "8956d82f-8a3f-46e5-b775-b6f5f835aa55",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "MoveGreen",
+                    "type": "Value",
+                    "id": "2a5125e5-b047-49f9-b431-3ed6b18538ca",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "e1e3f71a-d8c6-46f5-9758-7a28ecd934cd",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "GreenJump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "2D Vector",
+                    "id": "22bbe7c9-06bc-4968-9174-1fe5343cbdfb",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveGreen",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "left",
+                    "id": "1590f7d4-2f90-4b4e-87ab-760a67b0bfd2",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveGreen",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "a19c748f-d9a8-40ac-b7c2-627e835865d6",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveGreen",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

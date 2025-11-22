@@ -1147,76 +1147,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
-        },
-        {
-            ""name"": ""GreenMap"",
-            ""id"": ""0cdd415d-3162-45dd-ad5c-1b98e7649298"",
-            ""actions"": [
-                {
-                    ""name"": ""MoveGreen"",
-                    ""type"": ""Value"",
-                    ""id"": ""9e155baf-bbaf-4b6f-a376-e26122677d38"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""GreenJump"",
-                    ""type"": ""Button"",
-                    ""id"": ""0df34519-8f4b-4473-b881-22cbc7b5e996"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": ""2D Vector"",
-                    ""id"": ""81962c0d-4fd8-445c-a710-0673ad4d6667"",
-                    ""path"": ""2DVector"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""MoveGreen"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""c9c29092-fcbc-49e7-806a-84e87cddd304"",
-                    ""path"": ""<Keyboard>/leftArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""MoveGreen"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""46947bfc-41e4-4ee2-93d4-f6dd57217a59"",
-                    ""path"": ""<Keyboard>/rightArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""MoveGreen"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""adfda3ac-ec5c-497b-8a9e-4e2def15f6af"",
-                    ""path"": ""<Keyboard>/upArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""GreenJump"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                }
-            ]
         }
     ],
     ""controlSchemes"": [
@@ -1309,10 +1239,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_RedMap = asset.FindActionMap("RedMap", throwIfNotFound: true);
         m_RedMap_MoveRed = m_RedMap.FindAction("MoveRed", throwIfNotFound: true);
         m_RedMap_RedJump = m_RedMap.FindAction("RedJump", throwIfNotFound: true);
-        // GreenMap
-        m_GreenMap = asset.FindActionMap("GreenMap", throwIfNotFound: true);
-        m_GreenMap_MoveGreen = m_GreenMap.FindAction("MoveGreen", throwIfNotFound: true);
-        m_GreenMap_GreenJump = m_GreenMap.FindAction("GreenJump", throwIfNotFound: true);
     }
 
     ~@InputSystem_Actions()
@@ -1320,7 +1246,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         UnityEngine.Debug.Assert(!m_Player.enabled, "This will cause a leak and performance issues, InputSystem_Actions.Player.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_UI.enabled, "This will cause a leak and performance issues, InputSystem_Actions.UI.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_RedMap.enabled, "This will cause a leak and performance issues, InputSystem_Actions.RedMap.Disable() has not been called.");
-        UnityEngine.Debug.Assert(!m_GreenMap.enabled, "This will cause a leak and performance issues, InputSystem_Actions.GreenMap.Disable() has not been called.");
     }
 
     /// <summary>
@@ -1878,113 +1803,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     /// Provides a new <see cref="RedMapActions" /> instance referencing this action map.
     /// </summary>
     public RedMapActions @RedMap => new RedMapActions(this);
-
-    // GreenMap
-    private readonly InputActionMap m_GreenMap;
-    private List<IGreenMapActions> m_GreenMapActionsCallbackInterfaces = new List<IGreenMapActions>();
-    private readonly InputAction m_GreenMap_MoveGreen;
-    private readonly InputAction m_GreenMap_GreenJump;
-    /// <summary>
-    /// Provides access to input actions defined in input action map "GreenMap".
-    /// </summary>
-    public struct GreenMapActions
-    {
-        private @InputSystem_Actions m_Wrapper;
-
-        /// <summary>
-        /// Construct a new instance of the input action map wrapper class.
-        /// </summary>
-        public GreenMapActions(@InputSystem_Actions wrapper) { m_Wrapper = wrapper; }
-        /// <summary>
-        /// Provides access to the underlying input action "GreenMap/MoveGreen".
-        /// </summary>
-        public InputAction @MoveGreen => m_Wrapper.m_GreenMap_MoveGreen;
-        /// <summary>
-        /// Provides access to the underlying input action "GreenMap/GreenJump".
-        /// </summary>
-        public InputAction @GreenJump => m_Wrapper.m_GreenMap_GreenJump;
-        /// <summary>
-        /// Provides access to the underlying input action map instance.
-        /// </summary>
-        public InputActionMap Get() { return m_Wrapper.m_GreenMap; }
-        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
-        public void Enable() { Get().Enable(); }
-        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
-        public void Disable() { Get().Disable(); }
-        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
-        public bool enabled => Get().enabled;
-        /// <summary>
-        /// Implicitly converts an <see ref="GreenMapActions" /> to an <see ref="InputActionMap" /> instance.
-        /// </summary>
-        public static implicit operator InputActionMap(GreenMapActions set) { return set.Get(); }
-        /// <summary>
-        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
-        /// </summary>
-        /// <param name="instance">Callback instance.</param>
-        /// <remarks>
-        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
-        /// </remarks>
-        /// <seealso cref="GreenMapActions" />
-        public void AddCallbacks(IGreenMapActions instance)
-        {
-            if (instance == null || m_Wrapper.m_GreenMapActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_GreenMapActionsCallbackInterfaces.Add(instance);
-            @MoveGreen.started += instance.OnMoveGreen;
-            @MoveGreen.performed += instance.OnMoveGreen;
-            @MoveGreen.canceled += instance.OnMoveGreen;
-            @GreenJump.started += instance.OnGreenJump;
-            @GreenJump.performed += instance.OnGreenJump;
-            @GreenJump.canceled += instance.OnGreenJump;
-        }
-
-        /// <summary>
-        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
-        /// </summary>
-        /// <remarks>
-        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
-        /// </remarks>
-        /// <seealso cref="GreenMapActions" />
-        private void UnregisterCallbacks(IGreenMapActions instance)
-        {
-            @MoveGreen.started -= instance.OnMoveGreen;
-            @MoveGreen.performed -= instance.OnMoveGreen;
-            @MoveGreen.canceled -= instance.OnMoveGreen;
-            @GreenJump.started -= instance.OnGreenJump;
-            @GreenJump.performed -= instance.OnGreenJump;
-            @GreenJump.canceled -= instance.OnGreenJump;
-        }
-
-        /// <summary>
-        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="GreenMapActions.UnregisterCallbacks(IGreenMapActions)" />.
-        /// </summary>
-        /// <seealso cref="GreenMapActions.UnregisterCallbacks(IGreenMapActions)" />
-        public void RemoveCallbacks(IGreenMapActions instance)
-        {
-            if (m_Wrapper.m_GreenMapActionsCallbackInterfaces.Remove(instance))
-                UnregisterCallbacks(instance);
-        }
-
-        /// <summary>
-        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
-        /// </remarks>
-        /// <seealso cref="GreenMapActions.AddCallbacks(IGreenMapActions)" />
-        /// <seealso cref="GreenMapActions.RemoveCallbacks(IGreenMapActions)" />
-        /// <seealso cref="GreenMapActions.UnregisterCallbacks(IGreenMapActions)" />
-        public void SetCallbacks(IGreenMapActions instance)
-        {
-            foreach (var item in m_Wrapper.m_GreenMapActionsCallbackInterfaces)
-                UnregisterCallbacks(item);
-            m_Wrapper.m_GreenMapActionsCallbackInterfaces.Clear();
-            AddCallbacks(instance);
-        }
-    }
-    /// <summary>
-    /// Provides a new <see cref="GreenMapActions" /> instance referencing this action map.
-    /// </summary>
-    public GreenMapActions @GreenMap => new GreenMapActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     /// <summary>
     /// Provides access to the input control scheme.
@@ -2220,27 +2038,5 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnRedJump(InputAction.CallbackContext context);
-    }
-    /// <summary>
-    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "GreenMap" which allows adding and removing callbacks.
-    /// </summary>
-    /// <seealso cref="GreenMapActions.AddCallbacks(IGreenMapActions)" />
-    /// <seealso cref="GreenMapActions.RemoveCallbacks(IGreenMapActions)" />
-    public interface IGreenMapActions
-    {
-        /// <summary>
-        /// Method invoked when associated input action "MoveGreen" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnMoveGreen(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "GreenJump" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnGreenJump(InputAction.CallbackContext context);
     }
 }
