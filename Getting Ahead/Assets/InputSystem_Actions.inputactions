@@ -1013,6 +1013,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "RedTele",
+                    "type": "Button",
+                    "id": "df6e9826-f086-42e1-9953-834662521bea",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RedLaser",
+                    "type": "Button",
+                    "id": "1090b13b-781b-4266-84dd-91c4736749f6",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -1057,6 +1075,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "RedJump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a98d1f98-20ce-4f0f-8279-daf655c2da5d",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RedTele",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d7a18534-951e-4423-9f1d-da81d070960a",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RedLaser",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

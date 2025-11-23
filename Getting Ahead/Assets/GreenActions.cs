@@ -109,6 +109,15 @@ public partial class @GreenActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""GreenTele"",
+                    ""type"": ""Button"",
+                    ""id"": ""423f756a-1282-4dc4-9679-fc50db3feee6"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -155,6 +164,17 @@ public partial class @GreenActions: IInputActionCollection2, IDisposable
                     ""action"": ""MoveGreen"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""efc7808d-b23e-4b79-a7c8-22afe0dbdb59"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""GreenTele"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -165,6 +185,7 @@ public partial class @GreenActions: IInputActionCollection2, IDisposable
         m_GreenMap = asset.FindActionMap("GreenMap", throwIfNotFound: true);
         m_GreenMap_GreenJump = m_GreenMap.FindAction("GreenJump", throwIfNotFound: true);
         m_GreenMap_MoveGreen = m_GreenMap.FindAction("MoveGreen", throwIfNotFound: true);
+        m_GreenMap_GreenTele = m_GreenMap.FindAction("GreenTele", throwIfNotFound: true);
     }
 
     ~@GreenActions()
@@ -247,6 +268,7 @@ public partial class @GreenActions: IInputActionCollection2, IDisposable
     private List<IGreenMapActions> m_GreenMapActionsCallbackInterfaces = new List<IGreenMapActions>();
     private readonly InputAction m_GreenMap_GreenJump;
     private readonly InputAction m_GreenMap_MoveGreen;
+    private readonly InputAction m_GreenMap_GreenTele;
     /// <summary>
     /// Provides access to input actions defined in input action map "GreenMap".
     /// </summary>
@@ -266,6 +288,10 @@ public partial class @GreenActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "GreenMap/MoveGreen".
         /// </summary>
         public InputAction @MoveGreen => m_Wrapper.m_GreenMap_MoveGreen;
+        /// <summary>
+        /// Provides access to the underlying input action "GreenMap/GreenTele".
+        /// </summary>
+        public InputAction @GreenTele => m_Wrapper.m_GreenMap_GreenTele;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -298,6 +324,9 @@ public partial class @GreenActions: IInputActionCollection2, IDisposable
             @MoveGreen.started += instance.OnMoveGreen;
             @MoveGreen.performed += instance.OnMoveGreen;
             @MoveGreen.canceled += instance.OnMoveGreen;
+            @GreenTele.started += instance.OnGreenTele;
+            @GreenTele.performed += instance.OnGreenTele;
+            @GreenTele.canceled += instance.OnGreenTele;
         }
 
         /// <summary>
@@ -315,6 +344,9 @@ public partial class @GreenActions: IInputActionCollection2, IDisposable
             @MoveGreen.started -= instance.OnMoveGreen;
             @MoveGreen.performed -= instance.OnMoveGreen;
             @MoveGreen.canceled -= instance.OnMoveGreen;
+            @GreenTele.started -= instance.OnGreenTele;
+            @GreenTele.performed -= instance.OnGreenTele;
+            @GreenTele.canceled -= instance.OnGreenTele;
         }
 
         /// <summary>
@@ -369,5 +401,12 @@ public partial class @GreenActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnMoveGreen(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "GreenTele" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnGreenTele(InputAction.CallbackContext context);
     }
 }

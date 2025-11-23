@@ -23,6 +23,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "GreenTele",
+                    "type": "Button",
+                    "id": "423f756a-1282-4dc4-9679-fc50db3feee6",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -69,6 +78,17 @@
                     "action": "MoveGreen",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "efc7808d-b23e-4b79-a7c8-22afe0dbdb59",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "GreenTele",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

@@ -1,8 +1,9 @@
-using UnityEditor.ShaderGraph;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using System.Collections;
+using UnityEngine.SceneManagement;
+using UnityEngine.Rendering;
 
 public class MoveRed : MonoBehaviour
 {
@@ -14,6 +15,18 @@ public class MoveRed : MonoBehaviour
     public float jumpDistance;
     public bool jumpInput;
     public float jumpBuffer;
+    public Animator anim;
+    private float lastPosition;
+    public bool canTeleport;
+    public MoveGreen moveGreen;
+    public GameObject greenPlayer;
+    public Manager manager;
+    private float distanceX;
+    private float distanceY;
+    public GameObject laserPiece;
+    private float count;
+    public SpriteRenderer spriteRenderer;
+
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -26,10 +39,44 @@ public class MoveRed : MonoBehaviour
         controls = new InputSystem_Actions();
         controls.RedMap.Enable();
 
-        // Start the player with the ability to jump
+        // Start the player with the ability to jump and not with the ability to teleport
         onGround = true;
+        canTeleport = false;
+
     }
 
+    private void Update()
+    {
+        if (manager.laserOn)
+        {
+            distanceX = greenPlayer.transform.position.x - transform.position.x;
+            distanceY = greenPlayer.transform.position.y - transform.position.y;
+
+            if(Mathf.Abs(distanceX) > 5)
+            {
+                count = 20;
+            }
+            else if (Mathf.Abs(distanceX) > 8)
+            {
+                count = 25;
+            }
+            else if (Mathf.Abs(distanceX) > 12)
+            {
+                count = 30;
+            }
+            else
+            {
+                count = 15;
+            }
+
+                for (float i = 1; i < count + 1; i++)
+                {
+                    Instantiate(laserPiece, new Vector3(transform.position.x + (distanceX * (i / count)), transform.position.y + (distanceY * (i / count)), -0.5f), transform.rotation);
+                    //Instantiate(laserPiece, new Vector3(distanceX, transform.position.y + (distanceY * (i / 10)), -0.5f), transform.rotation);
+                }
+            manager.LaserFalse();
+        }
+    }
     void FixedUpdate()
     {
         // Get move value from the input system and then move the red player
@@ -46,6 +93,28 @@ public class MoveRed : MonoBehaviour
             onGround = false;
         }
 
+        // Change animation state to idle when idle and moving when moving
+        if (lastPosition != transform.position.x)
+        {
+            anim.SetBool("isMoving", true);
+        }
+
+        if (lastPosition == transform.position.x)
+        {
+            anim.SetBool("isMoving", false);
+        }
+
+        lastPosition = transform.position.x;
+
+        // Change sprite to face direction of movement
+        if( rb.linearVelocityX > 0)
+        {
+            spriteRenderer.flipX = false;
+        }
+        else if (rb.linearVelocityX < 0)
+        {
+            spriteRenderer.flipX = true;
+        }
     }
 
     private void OnRedJump()
@@ -56,6 +125,22 @@ public class MoveRed : MonoBehaviour
 
     }
 
+    private void OnRedTele()
+    {
+        if (canTeleport)
+        {
+            moveGreen.TeleportToRed();
+        }
+    }
+
+    private void OnRedLaser()
+    {
+        if (manager.laserOn == false)
+        {
+            manager.LaserTrue();
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         // Set onGround to true if the player touches the ground (or a hat)
@@ -63,6 +148,16 @@ public class MoveRed : MonoBehaviour
         {
             StopAllCoroutines();
             onGround = true;
+        }
+        else if (other.gameObject.CompareTag("Teleporter"))
+        {
+            canTeleport = true;
+        }
+        else if (other.gameObject.CompareTag("Flag1"))
+        {
+            controls.Disable();
+            StartCoroutine(WaitCut2());
+            
         }
     }
 
@@ -73,6 +168,10 @@ public class MoveRed : MonoBehaviour
         {
             //Set onGround to false after a delay
             StartCoroutine(WaitOffGround());
+        }
+        else if (other.gameObject.CompareTag("Teleporter"))
+        {
+            canTeleport = false;
         }
     }
 
@@ -89,5 +188,17 @@ public class MoveRed : MonoBehaviour
         // is stored, but it is stopped after a delay (creating jump buffer)
         yield return new WaitForSeconds(jumpBuffer);
         jumpInput = false;
+    }
+
+    IEnumerator WaitCut2()
+    {
+        yield return new WaitForSeconds(1);
+        SceneManager.LoadSceneAsync("Cutscene1");
+
+    }
+
+    public void TeleportToGreen()
+    {
+        transform.Translate(new Vector3(greenPlayer.transform.position.x - transform.position.x, greenPlayer.transform.position.y + 1.2f - transform.position.y, 0));
     }
 }

@@ -1099,6 +1099,24 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RedTele"",
+                    ""type"": ""Button"",
+                    ""id"": ""df6e9826-f086-42e1-9953-834662521bea"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RedLaser"",
+                    ""type"": ""Button"",
+                    ""id"": ""1090b13b-781b-4266-84dd-91c4736749f6"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -1143,6 +1161,28 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""RedJump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a98d1f98-20ce-4f0f-8279-daf655c2da5d"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RedTele"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d7a18534-951e-4423-9f1d-da81d070960a"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RedLaser"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1239,6 +1279,8 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_RedMap = asset.FindActionMap("RedMap", throwIfNotFound: true);
         m_RedMap_MoveRed = m_RedMap.FindAction("MoveRed", throwIfNotFound: true);
         m_RedMap_RedJump = m_RedMap.FindAction("RedJump", throwIfNotFound: true);
+        m_RedMap_RedTele = m_RedMap.FindAction("RedTele", throwIfNotFound: true);
+        m_RedMap_RedLaser = m_RedMap.FindAction("RedLaser", throwIfNotFound: true);
     }
 
     ~@InputSystem_Actions()
@@ -1702,6 +1744,8 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private List<IRedMapActions> m_RedMapActionsCallbackInterfaces = new List<IRedMapActions>();
     private readonly InputAction m_RedMap_MoveRed;
     private readonly InputAction m_RedMap_RedJump;
+    private readonly InputAction m_RedMap_RedTele;
+    private readonly InputAction m_RedMap_RedLaser;
     /// <summary>
     /// Provides access to input actions defined in input action map "RedMap".
     /// </summary>
@@ -1721,6 +1765,14 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "RedMap/RedJump".
         /// </summary>
         public InputAction @RedJump => m_Wrapper.m_RedMap_RedJump;
+        /// <summary>
+        /// Provides access to the underlying input action "RedMap/RedTele".
+        /// </summary>
+        public InputAction @RedTele => m_Wrapper.m_RedMap_RedTele;
+        /// <summary>
+        /// Provides access to the underlying input action "RedMap/RedLaser".
+        /// </summary>
+        public InputAction @RedLaser => m_Wrapper.m_RedMap_RedLaser;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1753,6 +1805,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @RedJump.started += instance.OnRedJump;
             @RedJump.performed += instance.OnRedJump;
             @RedJump.canceled += instance.OnRedJump;
+            @RedTele.started += instance.OnRedTele;
+            @RedTele.performed += instance.OnRedTele;
+            @RedTele.canceled += instance.OnRedTele;
+            @RedLaser.started += instance.OnRedLaser;
+            @RedLaser.performed += instance.OnRedLaser;
+            @RedLaser.canceled += instance.OnRedLaser;
         }
 
         /// <summary>
@@ -1770,6 +1828,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @RedJump.started -= instance.OnRedJump;
             @RedJump.performed -= instance.OnRedJump;
             @RedJump.canceled -= instance.OnRedJump;
+            @RedTele.started -= instance.OnRedTele;
+            @RedTele.performed -= instance.OnRedTele;
+            @RedTele.canceled -= instance.OnRedTele;
+            @RedLaser.started -= instance.OnRedLaser;
+            @RedLaser.performed -= instance.OnRedLaser;
+            @RedLaser.canceled -= instance.OnRedLaser;
         }
 
         /// <summary>
@@ -2038,5 +2102,19 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnRedJump(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "RedTele" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnRedTele(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "RedLaser" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnRedLaser(InputAction.CallbackContext context);
     }
 }

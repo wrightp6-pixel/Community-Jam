@@ -11,6 +11,12 @@ public class MoveGreen : MonoBehaviour
     public float jumpDistance;
     public bool jumpInput;
     public float jumpBuffer;
+    private float lastPosition;
+    public Animator anim;
+    public bool canTeleport;
+    public GameObject redPlayer;
+    public MoveRed moveRed;
+    public SpriteRenderer spriteRenderer;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -23,8 +29,9 @@ public class MoveGreen : MonoBehaviour
         controls = new GreenActions();
         controls.GreenMap.Enable();
 
-        // Start the player with the ability to jump
+        // Start the player with the ability to jump and not with the ability to teleport
         onGround = true;
+        canTeleport = false;
     }
 
     void FixedUpdate()
@@ -43,6 +50,29 @@ public class MoveGreen : MonoBehaviour
             onGround = false;
         }
 
+        // Change animation state to idle when idle and moving when moving
+        if (lastPosition != transform.position.x)
+        {
+            anim.SetBool("isMoving", true);
+        }
+
+        if (lastPosition == transform.position.x)
+        {
+            anim.SetBool("isMoving", false);
+        }
+
+        lastPosition = transform.position.x;
+
+        // Change sprite to face direction of movement
+        if (rb.linearVelocityX > 0)
+        {
+            spriteRenderer.flipX = false;
+        }
+        else if (rb.linearVelocityX < 0)
+        {
+            spriteRenderer.flipX = true;
+        }
+
     }
 
     private void OnGreenJump()
@@ -53,6 +83,14 @@ public class MoveGreen : MonoBehaviour
 
     }
 
+    private void OnGreenTele()
+    {
+        if (canTeleport)
+        {
+            moveRed.TeleportToGreen();
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         // Set onGround to true if the player touches the ground (or a hat)
@@ -60,6 +98,10 @@ public class MoveGreen : MonoBehaviour
         {
             StopAllCoroutines();
             onGround = true;
+        }
+        else if (other.gameObject.CompareTag("Teleporter"))
+        {
+            canTeleport = true;
         }
     }
 
@@ -71,7 +113,13 @@ public class MoveGreen : MonoBehaviour
             //Set onGround to false after a delay
             StartCoroutine(WaitOffGround());
         }
+        else if (other.gameObject.CompareTag("Teleporter"))
+        {
+            canTeleport = false;
+        }
     }
+
+    public
 
     IEnumerator WaitOffGround()
     {
@@ -86,5 +134,10 @@ public class MoveGreen : MonoBehaviour
         // is stored, but it is stopped after a delay (creating jump buffer)
         yield return new WaitForSeconds(jumpBuffer);
         jumpInput = false;
+    }
+
+    public void TeleportToRed()
+    {
+        transform.Translate(new Vector3(redPlayer.transform.position.x - transform.position.x, redPlayer.transform.position.y + 1.2f - transform.position.y, 0));
     }
 }
