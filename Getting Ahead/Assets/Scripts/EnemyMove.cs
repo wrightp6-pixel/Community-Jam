@@ -20,32 +20,35 @@ public class EnemyMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Switch direction after hitting certain point
-        if (transform.position.x >= xMax)
+        if (red.transform.position.x > xMin - 15 || green.transform.position.x > xMin - 15)
         {
-            moveRight = false;
-            spriteRenderer.flipX = true;
-        }
+            // Switch direction after hitting certain point
+            if (transform.position.x >= xMax)
+            {
+                moveRight = false;
+                spriteRenderer.flipX = true;
+            }
 
-        if (transform.position.x <= xMin)
-        {
-            moveRight = true;
-            spriteRenderer.flipX = false;
-        }
+            if (transform.position.x <= xMin)
+            {
+                moveRight = true;
+                spriteRenderer.flipX = false;
+            }
 
-        if(moveRight)
-        {
-            transform.Translate(Vector2.right * moveSpeed *  Time.deltaTime);
-        }
-        else
-        {
-            transform.Translate(Vector2.left * moveSpeed * Time.deltaTime);
-        }
+            if (moveRight)
+            {
+                transform.Translate(Vector2.right * moveSpeed * Time.deltaTime);
+            }
+            else
+            {
+                transform.Translate(Vector2.left * moveSpeed * Time.deltaTime);
+            }
 
-        // Destroy enemy if the player goes far enough away without already killing it
-        if (red.transform.position.x > xMax + 20 || green.transform.position.x > xMax + 20)
-        {
-            Destroy(gameObject);
+            // Destroy enemy if the player goes far enough away without already killing it
+            if (red.transform.position.x > xMax + 15 || green.transform.position.x > xMax + 15)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 

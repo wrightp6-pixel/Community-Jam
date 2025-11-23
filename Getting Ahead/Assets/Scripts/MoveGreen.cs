@@ -7,16 +7,18 @@ public class MoveGreen : MonoBehaviour
     private Vector2 moveDistance;
     public float moveSpeed;
     private Rigidbody2D rb;
-    public bool onGround;
+    private bool onGround;
     public float jumpDistance;
     public bool jumpInput;
     public float jumpBuffer;
     private float lastPosition;
     public Animator anim;
-    public bool canTeleport;
+    private bool canTeleport;
     public GameObject redPlayer;
     public MoveRed moveRed;
     public SpriteRenderer spriteRenderer;
+    public Manager manager;
+    private bool alive;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -32,6 +34,7 @@ public class MoveGreen : MonoBehaviour
         // Start the player with the ability to jump and not with the ability to teleport
         onGround = true;
         canTeleport = false;
+        alive = true;
     }
 
     void FixedUpdate()
@@ -73,19 +76,27 @@ public class MoveGreen : MonoBehaviour
             spriteRenderer.flipX = true;
         }
 
+        if (manager.health <= 0)
+        {
+            controls.Disable();
+            alive = false;
+        }
+
     }
 
     private void OnGreenJump()
     {
-        // Store the player's jump input for a short time
-        jumpInput = true;
-        StartCoroutine(WaitStopJump());
-
+        if (alive)
+        {
+            // Store the player's jump input for a short time
+            jumpInput = true;
+            StartCoroutine(WaitStopJump());
+        }
     }
 
     private void OnGreenTele()
     {
-        if (canTeleport)
+        if (canTeleport && alive)
         {
             moveRed.TeleportToGreen();
         }
@@ -103,6 +114,10 @@ public class MoveGreen : MonoBehaviour
         {
             canTeleport = true;
         }
+        else if (other.gameObject.CompareTag("Enemy"))
+        {
+            manager.ChangeHealth();
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other)
@@ -118,8 +133,6 @@ public class MoveGreen : MonoBehaviour
             canTeleport = false;
         }
     }
-
-    public
 
     IEnumerator WaitOffGround()
     {

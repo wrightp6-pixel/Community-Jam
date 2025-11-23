@@ -11,13 +11,13 @@ public class MoveRed : MonoBehaviour
     private Vector2 moveDistance;
     public float moveSpeed;
     private Rigidbody2D rb;
-    public bool onGround;
+    private bool onGround;
     public float jumpDistance;
     public bool jumpInput;
     public float jumpBuffer;
     public Animator anim;
     private float lastPosition;
-    public bool canTeleport;
+    private bool canTeleport;
     public MoveGreen moveGreen;
     public GameObject greenPlayer;
     public Manager manager;
@@ -26,6 +26,8 @@ public class MoveRed : MonoBehaviour
     public GameObject laserPiece;
     private float count;
     public SpriteRenderer spriteRenderer;
+    private bool alive;
+    public TextChange gameOverText;
 
 
 
@@ -42,6 +44,7 @@ public class MoveRed : MonoBehaviour
         // Start the player with the ability to jump and not with the ability to teleport
         onGround = true;
         canTeleport = false;
+        alive = true;
 
     }
 
@@ -68,13 +71,19 @@ public class MoveRed : MonoBehaviour
             {
                 count = 15;
             }
-
+                // Create circles that make up friend laser
                 for (float i = 1; i < count + 1; i++)
                 {
                     Instantiate(laserPiece, new Vector3(transform.position.x + (distanceX * (i / count)), transform.position.y + (distanceY * (i / count)), -0.5f), transform.rotation);
-                    //Instantiate(laserPiece, new Vector3(distanceX, transform.position.y + (distanceY * (i / 10)), -0.5f), transform.rotation);
                 }
             manager.LaserFalse();
+        }
+
+        if (manager.health <= 0)
+        {
+            controls.Disable();
+            alive = false;
+            gameOverText.TextOn();
         }
     }
     void FixedUpdate()
@@ -119,15 +128,18 @@ public class MoveRed : MonoBehaviour
 
     private void OnRedJump()
     {
-        // Store the player's jump input for a short time
-        jumpInput = true;
-        StartCoroutine(WaitStopJump());
+        if (alive)
+        {
+            // Store the player's jump input for a short time
+            jumpInput = true;
+            StartCoroutine(WaitStopJump());
+        }
 
     }
 
     private void OnRedTele()
     {
-        if (canTeleport)
+        if (canTeleport && alive)
         {
             moveGreen.TeleportToRed();
         }
@@ -157,7 +169,10 @@ public class MoveRed : MonoBehaviour
         {
             controls.Disable();
             StartCoroutine(WaitCut2());
-            
+        }
+        else if(other.gameObject.CompareTag("Enemy"))
+        {
+            manager.ChangeHealth();
         }
     }
 
